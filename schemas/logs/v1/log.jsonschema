@@ -1,0 +1,97 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "required": [
+        "ts",
+        "service",
+        "level",
+        "msg",
+        "schema_version"
+    ],
+    "unevaluatedProperties": false,
+    "properties": {
+        "schema_version": {
+            "type": "string",
+            "const": "1.0"
+        },
+        "ts": {
+            "type": "integer",
+            "minimum": 1,
+            
+            "description": "Epoc timestamp in ns."
+        },
+        "service": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "^[a-zA-Z0-9._-]+$",
+            "description": "The service name."
+        },
+        "level": {
+            "type": "string",
+            "enum": [
+                "DEBUG",
+                "INFO",
+                "WARN",
+                "ERROR"
+            ],
+            "description": "The log level."
+        },
+        "msg": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 65500,
+            "description": "The log message."
+        },
+        "trace_id": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Trace id for distributed tracing."
+        },
+        "span_id": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Span id for distributed tracing."
+        },
+        "host": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "The host name."
+        },
+        "env": {
+            "type": "string",
+            "maxLength": 32,
+            "pattern": "^[a-zA-Z0-9._-]+$",
+            "description": "The environment."
+        },
+        "version": {
+            "type": "string",
+            "maxLength": 32,
+            "pattern": "^[a-zA-Z0-9._-]+$",
+            "description": "The version."
+        },
+        "tags": {
+            "type": "array",
+            "maxItems": 20,
+            
+            "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 32
+            }
+        },
+        "meta": {
+            "type": "object",
+            "maxProperties": 50,
+            "propertyNames": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9._-]+$",
+                "maxLength": 64
+            },
+            "additionalProperties": {
+                "type": "string",
+                "maxLength": 256
+            }
+        }
+    }
+}
